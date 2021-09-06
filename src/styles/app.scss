@@ -1,0 +1,145 @@
+body {
+  overflow-x: hidden;
+  overflow-y: scroll;
+  font-family: 'Source Sans Pro','Helvetica Neue',Helvetica,Arial,sans-serif;
+}
+
+.toolbar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: $base-spacing / 2;
+  flex-wrap: wrap;
+
+  >* {
+    margin: 0 $base-spacing / 4 !important;
+
+    &:first-child {
+      margin-left: 0 !important;
+    }
+
+    &:last-child {
+      margin-right: 0 !important;
+    }
+  }
+}
+
+.toolbar-spacer {
+  display: flex;
+  flex: 1;
+}
+
+
+
+.page-section {
+  background-color: #fff;
+  margin-bottom: $base-spacing / 2;
+  padding: $base-spacing;
+  overflow: hidden;
+}
+
+.box {
+  position: relative;
+  border-radius: 3px;
+  background: #ffffff;
+  border-top: 3px solid #d2d6de;
+  margin-bottom: 20px;
+  width: 100%;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+
+  &.box-primary {
+    border-top-color: #3c8dbc;
+  }
+
+  &.box-info {
+    border-top-color: #00c0ef;
+  }
+
+  &.box-danger {
+    border-top-color: #dd4b39;
+  }
+
+  &.box-success {
+    border-top-color: #00a65a;
+  }
+}
+
+.box-body {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+  padding: 10px;
+}
+
+.box-header {
+  color: #444;
+  display: block;
+  padding: 10px;
+  position: relative;
+
+  &.with-border {
+    border-bottom: 1px solid #f4f4f4;
+  }
+}
+
+.box-header>.fa,
+.box-header>.glyphicon,
+.box-header>.ion,
+.box-header .box-title {
+  display: inline-block;
+  font-size: 18px;
+  margin: 0;
+  line-height: 1;
+}
+
+.box-header>.box-tools {
+  position: absolute;
+  right: 10px;
+  top: 5px;
+}
+
+.box-footer {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+  border-top: 1px solid #f4f4f4;
+  padding: 10px;
+  background-color: #fff;
+}
+
+
+
+// .text-danger {
+//   color: $red;
+// }
+
+// .el-card__header {
+//   padding: $base-spacing/2 $base-spacing;
+// }
+
+// .list-section {
+//   background-color: #fff;
+//   padding: $base-spacing;
+//   border-radius: $base-radius;
+
+//   &+.list-section {
+//     margin-top: $base-spacing;
+//     // 20200906 为了table高度撑满
+//     // position: absolute;
+//     // height: 100%;
+//     // width: 100%;
+//   }
+
+//   >.toolbar:first-child {
+//     margin-top: 0;
+//   }
+
+//   .query-group {
+//     // margin-left: -$base-spacing/2;
+//     // margin-right: -$base-spacing/2;
+//     margin-top: -$base-spacing/2;
+//     margin-bottom: -$base-spacing/2;
+//   }
+// }

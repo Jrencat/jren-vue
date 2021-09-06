@@ -1,0 +1,10 @@
+:root{
+  --svin--primary: #3c8dbc;
+  --svin--primary-light: #4a98c5;
+  --svin--primary-light1: #3986b3;
+  --svin--primary-dark: #32759d;
+  --svin--primary-dark1: #2c688b;
+  --svin--primary-dark2: #285e7d;
+  --svin--menuActiveColor: #3c8dbc;
+  --svin--menuActiveBg: rgba(0, 212, 139, 0.1);
+}

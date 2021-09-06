@@ -1,0 +1,43 @@
+<template>
+  <transition name="fade" v-if="loading">
+    <loading />
+  </transition>
+  <codemirror-editor v-else />
+</template>
+
+<script>
+import Loading from "@/components/Loading/Loading";
+import CodemirrorEditor from "./CodemirrorEditor";
+export default {
+  name: "DoocsmdList",
+  components: {
+    Loading,
+    CodemirrorEditor,
+  },
+  data() {
+    return {
+      loading: true,
+    };
+  },
+  mounted() {
+    setTimeout(() => {
+      this.loading = false;
+    }, 100);
+  },
+};
+</script>
+
+<style scoped>
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+.fade-enter-to,
+.fade-leave {
+  opacity: 1;
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition: all 1s;
+}
+</style>

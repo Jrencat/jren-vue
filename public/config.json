@@ -1,0 +1,13 @@
+{
+  "SERVER_URL":"mock/",
+  "APP": {
+    "NAME": "Jren",
+    "CHILD_NAME": "项目管理",
+    "PLAT_NAME": "",
+    "AREA_NAME": "",
+    "FOOTER_NAME": "技术支持：rjx",
+    "THEME": "#3c8dbc",
+    "LOGO": "./assets/logo.png",
+    "LOGIN_BACKGROUND": "./assets/login-bg.jpg"
+  }
+}

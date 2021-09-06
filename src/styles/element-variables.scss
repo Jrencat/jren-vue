@@ -1,0 +1,52 @@
+/**
+* I think element-ui's default theme color is too light for long-term use.
+* So I modified the default color and you can modify it to your liking.
+**/
+$--color-text-primary: #333 !default;
+/// color|1|Font Color|2
+$--color-text-regular: #666 !default;
+/// color|1|Font Color|2
+$--color-text-secondary: #999 !default;
+/// color|1|Font Color|2
+$--color-text-placeholder: #C0C4CC !default;
+/// color|1|Border Color|3
+$--border-color-base: #DCDFE6 !default;
+/// color|1|Border Color|3
+$--border-color-light: #E4E7ED !default;
+/// color|1|Border Color|3
+$--border-color-lighter: #EBEEF5 !default;
+/// color|1|Border Color|3
+$--border-color-extra-light: #F2F6FC !default;
+
+$--border-radius-base: 3px;
+$--border-radius-small: 2px;
+
+// Background
+/// color|1|Background Color|4
+$--background-color-base: #F5F7FA !default;
+/* theme color */
+$--color-primary:#3c8dbc;
+$--color-success: #00a65a;
+$--color-warning: #f39c12;
+$--color-danger: #dd4b39;
+// $--color-info: #1E1E1E;
+
+$--button-font-weight: 400;
+
+// $--color-text-regular: #1f2d3d;
+
+$--border-color-light: #dfe4ed;
+$--border-color-lighter: #e6ebf5;
+
+$--table-border: 1px solid #dfe6ec;
+
+/* icon font path, required */
+$--font-path: "~element-ui/lib/theme-chalk/fonts";
+
+@import "~element-ui/packages/theme-chalk/src/index";
+
+// the :export directive is the magic sauce for webpack
+// https://www.bluematador.com/blog/how-to-share-variables-between-js-and-sass
+:export {
+  theme: $--color-primary;
+}

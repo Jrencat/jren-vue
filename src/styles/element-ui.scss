@@ -1,0 +1,341 @@
+// cover some element-ui styles
+@import './variables.scss';
+
+.ct-app {
+
+  .el-breadcrumb__inner,
+  .el-breadcrumb__inner a {
+    font-weight: 400 !important;
+  }
+
+  .el-upload {
+    input[type="file"] {
+      display: none !important;
+    }
+  }
+
+  .el-upload__input {
+    display: none;
+  }
+
+  .cell {
+    .el-tag {
+      margin-right: 0px;
+    }
+  }
+
+  .small-padding {
+    .cell {
+      padding-left: 5px;
+      padding-right: 5px;
+    }
+  }
+
+  .fixed-width {
+    .el-button--mini {
+      padding: 7px 10px;
+      min-width: 60px;
+    }
+  }
+
+  .status-col {
+    .cell {
+      padding: 0 10px;
+      text-align: center;
+
+      .el-tag {
+        margin-right: 0px;
+      }
+    }
+  }
+
+  // to fixed https://github.com/ElemeFE/element/issues/2461
+  .el-dialog {
+    transform: none;
+    left: 0;
+    position: relative;
+    margin: 0 auto;
+  }
+
+  // refine element ui upload
+  .upload-container {
+    .el-upload {
+      width: 100%;
+
+      .el-upload-dragger {
+        width: 100%;
+        height: 200px;
+      }
+    }
+  }
+
+  // dropdown
+  .el-dropdown-menu {
+    a {
+      display: block
+    }
+  }
+
+  // fix date-picker ui bug in filter-item
+  .el-range-editor.el-input__inner {
+    display: inline-flex !important;
+  }
+
+  // to fix el-date-picker css style
+  .el-range-separator {
+    box-sizing: content-box;
+  }
+
+  .el-form-item .el-input {
+    width: 100%;
+  }
+
+  // $table-color: lighten($primary, 5%);
+
+  // .el-table {
+  //   th {
+  //     background-color: $table-color;
+  //     color: #fff;
+  //   }
+  // }
+
+  // .el-table--border th,
+  // .el-table--border td {
+  //   border-right: 1px solid $table-color;
+  // }
+
+  // .el-table th.is-leaf,
+  // .el-table td {
+  //   border-bottom: 1px solid $table-color;
+  // }
+
+  // .el-table--group,
+  // .el-table--border {
+  //   border-color: $table-color;
+  // }
+
+  // .el-table__body {
+  //   border-right: 1px solid $table-color;
+  //   border-bottom: 1px solid $table-color;
+  // }
+
+  .el-tree-node__content {
+    position: relative;
+    height: initial;
+  }
+
+
+  .el-dialog__header {
+    background-color: $primary;
+    color: #fff;
+    padding-top: 10px;
+    text-align: left;
+  }
+
+  .el-dialog__headerbtn {
+    top: 13px;
+  }
+
+  .el-dialog__title {
+    color: #fff;
+  }
+
+  .el-dialog__headerbtn .el-dialog__close {
+    color: #fff;
+  }
+
+  .el-dialog__headerbtn:focus .el-dialog__close,
+  .el-dialog__headerbtn:hover .el-dialog__close {
+    color: #999;
+  }
+
+  .el-dialog__footer {
+    text-align: center;
+  }
+
+  .el-button--mini {
+    padding: 3px 4px;
+  }
+
+
+  /*
+  *表格组件样式
+  */
+  .el-table {
+
+    .el-button--mini,
+    .el-button--small {
+      font-size: 14px;
+    }
+
+    th {
+      // background-color: #f2f2f2;
+      background-color: #F5F5F5;
+      font-size: 15px;
+      color: #666;
+      font-weight: 600;
+    }
+  }
+
+  .el-table__body tr.current-row>td {
+    background-color: rgba($color: #05B489, $alpha: 0.1) !important;
+  }
+
+  .el-table--striped .el-table__body tr.el-table__row--striped td {
+    background: #F9F9F9;
+  }
+
+  .el-table__body tr.hover-row>td {
+    background-color: darken(#F5F7FA, 8%);
+  }
+
+  .el-table--small td,
+  .el-table--small th {
+    padding: 13px 0
+  }
+
+  /*
+  *表单组件样式
+  */
+
+  .el-form-item__label {
+    font-weight: normal;
+  }
+
+  // .el-form--label-top{
+  //   .el-form-item--mini.el-form-item,
+  //   .el-form-item--small.el-form-item{
+  //     margin: 12px 0;
+  //   }
+  //   .el-form-item__label{
+  //     display: block;
+  //     line-height: 1;
+  //     padding-bottom: 12px;
+  //   }
+  // }
+  .el-dialog__body {
+    .el-form-item {
+      // margin-top: $base-spacing/2 !important;
+      margin-bottom: $base-spacing*2;
+    }
+  }
+
+  // .el-form-item__error{
+  //   position: relative;
+  // }
+
+
+  // .tab {
+  //   padding: 0 20px;
+  //   height: 40px;
+  //   box-sizing: border-box;
+  //   line-height: 40px;
+  //   display: inline-block;
+  //   list-style: none;
+  //   font-size: 14px;
+  //   font-weight: 500;
+  //   color: #303133;
+  //   position: relative;
+  //   cursor: pointer;
+
+  //   &.is-active {
+  //     color: $primary;
+  //     background-color: #fff;
+  //     border-right-color: #dcdfe6;
+  //     border-left-color: #dcdfe6;
+  //     border-bottom: 1px solid #fff;
+  //     position: relative;
+  //     top: 1px;
+  //   }
+  // }
+
+  // .el-form-item__label {
+  //   color: #666;
+  // }
+
+  .el-button+.el-button {
+    margin-left: $base-spacing / 2;
+  }
+
+  .el-table .cell {
+    padding-left: $base-spacing;
+    padding-right: $base-spacing;
+  }
+
+  .el-button--small {
+    padding: 8px 12px;
+
+    span {
+      vertical-align: middle;
+      font-size: 14px;
+    }
+  }
+
+  .el-radio-button--small .el-radio-button__inner {
+    padding: 8px 12px;
+  }
+
+  .el-checkbox__inner {
+    border-color: #999;
+  }
+
+  .el-table--small {
+    font-size: 14px;
+  }
+
+  .el-table {
+    border-top: 1px solid #dfe6ec;
+  }
+
+  .el-form-item__label {
+    font-weight: 400;
+  }
+
+  .el-divider--horizontal {
+    margin: $base-spacing 0;
+  }
+
+  .el-divider--vertical {
+    margin: 0 $base-spacing / 2;
+  }
+
+
+  .el-input {
+    .el-loading-mask {
+      top: 2px;
+      left: 2px;
+      right: 2px;
+      bottom: 2px;
+    }
+
+    .el-loading-spinner {
+      margin-top: -12px;
+
+      .circular {
+        width: 24px;
+        height: 24px;
+      }
+    }
+  }
+
+  .el-input.is-disabled .el-input__inner {
+    color: #666666;
+  }
+
+  .el-scrollbar__wrap {
+    height: calc(100% + 17px) !important;
+  }
+
+  .el-badge__content {
+    border-radius: .25em;
+    padding: 2px 3px;
+    height: auto;
+    line-height: .9;
+    font-size: 75%;
+    border: 0;
+  }
+
+  .el-cascader-panel{
+    max-height: 500px !important;
+  }
+}

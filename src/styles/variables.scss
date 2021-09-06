@@ -1,0 +1,73 @@
+// base color
+$blue:#324157;
+$light-blue:#3A71A8;
+$red:#C03639;
+$pink: #E65D6E;
+$green: #30B08F;
+$tiffany: #4AB7BD;
+$yellow:#FEC171;
+$panGreen: #30B08F;
+
+$primary: var(--svin--primary);
+$primary-dark: var(--svin--primary-dark2);
+// sidebar
+$menuText:#4a4a4a;
+$sidebarBg: #ffffff;
+
+$menuActiveColor: var(--svin--menuActiveColor);
+$menuActiveBg: var(--svin--menuActiveBg);
+
+$base-spacing: 14px;
+$base-background: #ecf0f5;
+$content-background: #ecf0f5;
+$base-radius: 2px;
+$base-shadow: 0 1px 3px rgba(0,0,0,.25);
+$base-transition-duration: 200ms;
+
+$title-large-size: 18px;
+$title-size: 13px;
+$text-size: 12px;
+
+$base-index: 100; //
+$index-step: 10;
+
+$sidebar-width: 230px;
+$sidebar-width-mini: 50px;
+
+$navbar-height: 50px;
+$navbar-background-color: var(--svin--primary);
+$navbar-text-color: #fff;
+
+$breadcrumb-height: 31px;
+
+$tabs-height: 40px;
+
+$app-content-index: $base-index;
+$content-nav-index: $app-content-index+$index-step;
+$app-drawer-bg-index: $content-nav-index+$index-step;
+$app-sidebar-index: $app-drawer-bg-index+$index-step;
+$app-navbar-index: $app-sidebar-index+$index-step;
+$app-logo-index: $app-navbar-index+$index-step;
+
+// the :export directive is the magic sauce for webpack
+// https://www.bluematador.com/blog/how-to-share-variables-between-js-and-sass
+:export {
+  // menuText: $menuText;
+  // menuActiveText: $menuActiveText;
+  // subMenuActiveText: $subMenuActiveText;
+  // menuBg: $menuBg;
+  // menuHover: $menuHover;
+  // subMenuBg: $subMenuBg;
+  // subMenuHover: $subMenuHover;
+  // sideBarWidth: $sidebar-width;
+}
+
+// 20200903 根据昨天的修改建议 设置一些通用的
+// 16像素字体加粗
+// 14像素字体不加粗
+$title-blod: 16px;
+$normal-text: 14px;
+// 大弹窗（600*520） 底部按钮固定，中间区域内容多可以滚动
+$big-modal: 420px;
+$label-left: 1em;
+// 小弹窗（400*270）内容少，应该不会出现要滚动的情况

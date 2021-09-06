@@ -1,0 +1,72 @@
+{
+  "name": "jren",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint",
+    "preview": "node build/index.js --preview"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.4",
+    "ali-oss": "^6.16.0",
+    "axios": "^0.21.1",
+    "codemirror": "^5.62.3",
+    "compression-webpack-plugin": "6.0.5",
+    "core-js": "^3.6.5",
+    "cos-js-sdk-v5": "^1.2.18",
+    "crypto-js": "^4.1.1",
+    "element-ui": "^2.15.5",
+    "fuse.js": "^6.4.6",
+    "highlightjs": "^9.16.2",
+    "juice": "^8.0.0",
+    "less": "^4.1.1",
+    "less-loader": "5.0.0",
+    "lodash": "4.16.0",
+    "lodash.get": "^4.4.2",
+    "lodash.uniqby": "^4.7.0",
+    "marked": "0.3.6",
+    "mavon-editor": "^2.9.1",
+    "node-loader": "^0.5.0",
+    "normalize.css": "^8.0.1",
+    "nprogress": "^0.2.0",
+    "qiniu-js": "^3.3.3",
+    "runjs": "^4.4.2",
+    "sass": "1.26.2",
+    "sass-loader": "8.0.2",
+    "screenfull": "^5.1.0",
+    "stackedit-js": "^1.0.7",
+    "vue": "^2.6.11",
+    "vue-router": "^3.5.2",
+    "vuex": "^3.6.2"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "~4.5.0",
+    "@vue/cli-plugin-eslint": "~4.5.0",
+    "@vue/cli-service": "~4.5.0",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^6.7.2",
+    "eslint-plugin-vue": "^6.2.2",
+    "vue-template-compiler": "^2.6.11"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended"
+    ],
+    "parserOptions": {
+      "parser": "babel-eslint"
+    },
+    "rules": {}
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+}
