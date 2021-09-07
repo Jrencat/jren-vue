@@ -3366,6 +3366,16 @@ degenerator@^2.2.0:
     escodegen "^1.8.1"
     esprima "^4.0.0"
 
+degenerator@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/degenerator/-/degenerator-3.0.1.tgz#7ef78ec0c8577a544477308ddf1d2d6e88d51f5b"
+  integrity sha512-LFsIFEeLPlKvAKXu7j3ssIG6RT0TbI7/GhsqrI0DnHASEQjXQ0LUSYcjJteGgRGmZbl1TnMSxpNQIAiJ7Du5TQ==
+  dependencies:
+    ast-types "^0.13.2"
+    escodegen "^1.8.1"
+    esprima "^4.0.0"
+    vm2 "^3.9.3"
+
 del@^4.1.1:
   version "4.1.1"
   resolved "https://registry.npm.taobao.org/del/download/del-4.1.1.tgz#9e8f117222ea44a31ff3a156c049b99052a9f0b4"
@@ -5779,17 +5789,12 @@ lodash.uniqby@^4.7.0:
   resolved "https://registry.yarnpkg.com/lodash.uniqby/-/lodash.uniqby-4.7.0.tgz#d99c07a669e9e6d24e1362dfe266c67616af1302"
   integrity sha1-2ZwHpmnp5tJOE2Lf4mbGdhavEwI=
 
-lodash@4.16.0:
-  version "4.16.0"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.16.0.tgz#834cb785057157032242beaf101bb3d99e55d0d8"
-  integrity sha1-g0y3hQVxVwMiQr6vEBuz2Z5V0Ng=
-
 lodash@4.17.11:
   version "4.17.11"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.11.tgz#b39ea6229ef607ecd89e2c8df12536891cac9b8d"
   integrity sha512-cQKh8igo5QUhZ7lg38DYWAxMvjSAKG0A8wGSVimP07SIUEK2UO+arSRKbRZWtelMtN5V0Hkwh5ryOto/SshYIg==
 
-lodash@^4.17.11, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.19, lodash@^4.17.20, lodash@^4.17.21, lodash@^4.17.3:
+lodash@4.17.21, lodash@^4.17.11, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.19, lodash@^4.17.20, lodash@^4.17.21, lodash@^4.17.3:
   version "4.17.21"
   resolved "https://registry.nlark.com/lodash/download/lodash-4.17.21.tgz?cache=0&sync_timestamp=1618847150612&other_urls=https%3A%2F%2Fregistry.nlark.com%2Flodash%2Fdownload%2Flodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
   integrity sha1-Z5WRxWTDv/quhFTPCz3zcMPWkRw=
@@ -6687,6 +6692,15 @@ pac-proxy-agent@^4.1.0:
     pac-resolver "^4.1.0"
     raw-body "^2.2.0"
     socks-proxy-agent "5"
+
+pac-resolver@5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/pac-resolver/-/pac-resolver-5.0.0.tgz#1d717a127b3d7a9407a16d6e1b012b13b9ba8dc0"
+  integrity sha512-H+/A6KitiHNNW+bxBKREk2MCGSxljfqRX76NjummWEYIat7ldVXRU3dhRIE3iXZ0nvGBk6smv3nntxKkzRL8NA==
+  dependencies:
+    degenerator "^3.0.1"
+    ip "^1.1.5"
+    netmask "^2.0.1"
 
 pac-resolver@^4.1.0:
   version "4.2.0"
@@ -9152,6 +9166,11 @@ vm-browserify@^1.0.1:
   version "1.1.2"
   resolved "https://registry.nlark.com/vm-browserify/download/vm-browserify-1.1.2.tgz#78641c488b8e6ca91a75f511e7a3b32a86e5dda0"
   integrity sha1-eGQcSIuObKkadfUR56OzKobl3aA=
+
+vm2@^3.9.3:
+  version "3.9.3"
+  resolved "https://registry.yarnpkg.com/vm2/-/vm2-3.9.3.tgz#29917f6cc081cc43a3f580c26c5b553fd3c91f40"
+  integrity sha512-smLS+18RjXYMl9joyJxMNI9l4w7biW8ilSDaVRvFBDwOH8P0BK1ognFQTpg0wyQ6wIKLTblHJvROW692L/E53Q==
 
 vue-eslint-parser@^7.0.0:
   version "7.10.0"
