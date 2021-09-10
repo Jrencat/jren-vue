@@ -116,6 +116,110 @@ export const Routes = [
                                 ]
                             }
                         ]
+                    },
+                    {
+                        path: 'pdf',
+                        component: () => import('@/views/forntend/pdf/index'),
+                        name: 'PdfIndex',
+                        meta: { title: 'pdf' },
+                        children: [
+                            { path: '', redirect: '' },
+                            {
+                                path: 'iframe',
+                                component: () => import('@/views/forntend/pdf/iframe/index'),
+                                name: 'IframeIndex',
+                                meta: { title: 'iframe' },
+                                children: [
+                                    { path: '', redirect: 'list' },
+                                    {
+                                        path: 'list',
+                                        component: () => import('@/views/forntend/pdf/iframe/list'),
+                                        name: 'IframeList',
+                                        meta: { title: 'iframe' }
+                                    }
+                                ]
+                            },
+                            {
+                                path: 'pdfjs',
+                                component: () => import('@/views/forntend/pdf/pdfjs/index'),
+                                name: 'PdfjsIndex',
+                                meta: { title: 'pdfjs' },
+                                children: [
+                                    { path: '', redirect: 'list' },
+                                    {
+                                        path: 'list',
+                                        component: () => import('@/views/forntend/pdf/pdfjs/list'),
+                                        name: 'PdfjsList',
+                                        meta: { title: 'pdfjs' }
+                                    }
+                                ]
+                            },
+                            {
+                                path: 'lodop',
+                                component: () => import('@/views/forntend/pdf/lodop/index'),
+                                name: 'LodopIndex',
+                                meta: { title: 'lodop' },
+                                children: [
+                                    { path: '', redirect: 'list' },
+                                    {
+                                        path: 'list',
+                                        component: () => import('@/views/forntend/pdf/lodop/list'),
+                                        name: 'LodopList',
+                                        meta: { title: 'lodop' }
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                path: 'tools',
+                meta: { title: '工具' },
+                component: () => import('@/views/tools/index'),
+                name: 'ToolsIndex',
+                children: [
+                    {
+                        path: '', redirect: 'base64Transform'
+                    },
+                    {
+                        path: 'base64Transform',
+                        component: () => import('@/views/tools/base64Transform/index'),
+                        name: 'Base64TransformIndex',
+                        meta: { title: 'base64Transform' },
+                        children: [
+                            { path: '', redirect: '' },
+                            {
+                                path: 'fileToBase64',
+                                component: () => import('@/views/tools/base64Transform/fileToBase64/index'),
+                                name: 'FileToBase64Index',
+                                meta: { title: 'fileToBase64' },
+                                children: [
+                                    { path: '', redirect: 'list' },
+                                    {
+                                        path: 'list',
+                                        component: () => import('@/views/tools/base64Transform/fileToBase64/list'),
+                                        name: 'FileToBase64List',
+                                        meta: { title: 'fileToBase64' }
+                                    }
+                                ]
+                            },
+                            {
+                                path: 'base64ToFile',
+                                component: () => import('@/views/tools/base64Transform/base64ToFile/index'),
+                                name: 'Base64ToFileIndex',
+                                meta: { title: 'base64ToFile' },
+                                children: [
+                                    { path: '', redirect: 'list' },
+                                    {
+                                        path: 'list',
+                                        component: () => import('@/views/tools/base64Transform/base64ToFile/list'),
+                                        name: 'Base64ToFileList',
+                                        meta: { title: 'base64ToFile' }
+                                    }
+                                ]
+                            }
+                        ]
                     }
                 ]
             }

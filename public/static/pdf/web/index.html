@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<!--
+Copyright 2012 Mozilla Foundation
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+Adobe CMap resources are covered by their own copyright but the same license:
+
+    Copyright 1990-2015 Adobe Systems Incorporated.
+
+See https://github.com/adobe-type-tools/cmap-resources
+-->
+<html dir="ltr" mozdisallowselectionprint>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="google" content="notranslate">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>打印</title>
+
+    <link rel="stylesheet" href="viewer.css">
+<!-- This snippet is used in production (included from viewer.html) -->
+    <link rel="resource" type="application/l10n" href="locale/locale.properties">
+    <script src="pdf-lib.js"></script>
+    <script src="../build/pdf.js"></script>
+    <style>
+      .ct-sys-loading {
+        background-color: rgba(255, 255, 255, .5);
+        position: fixed;
+        z-index: 999;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: 0;
+        -webkit-transition: opacity ease-in-out 200ms;
+        -moz-transition: opacity ease-in-out 200ms;
+        transition: opacity ease-in-out 200ms;
+      }
+
+      .ct-sys-loading-image {
+        display: block;
+        width: 32px;
+        height: 32px;
+        margin: 0 auto;
+      }
+
+      .ct-sys-loading-content {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        margin-top: -16px;
+      }
+
+      .ct-sys-loading-tips {
+        text-align: center;
+        color: #666;
+        font-size: 14px;
+        margin-top: 0.5em;
+        white-space: nowrap;
+      }
+
+      .ct-sys-tips-wrapper {
+        background-color: #999;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: 0;
+      }
+
+      .ct-sys-tips {
+        position: relative;
+        z-index: 9999;
+        border: 1px solid #ffa39e;
+        background-color: #fff1f0;
+        width: 720px;
+        max-width: 100%;
+        margin: 4em auto;
+        padding: 2em 1em;
+        text-align: center;
+        font-size: 18px;
+        color: #000;
+      }
+    </style>
+    <script>
+      //编码转换
+      function convertDataURIToBinary(dataURI) {
+        var BASE64_MARKER = ';base64,'; //声明文件流编码格式
+        //[RFC2045]中有规定：Base64一行不能超过76字符，超过则添加回车换行符。因此需要把base64字段中的换行符，回车符给去掉。
+        var base64Index = dataURI.indexOf(BASE64_MARKER) + BASE64_MARKER.length;
+        var newUrl = dataURI.substring(base64Index).replace(/[\n\r]/g, '');
+        var raw = window.atob(newUrl); //这个方法在ie内核下无法正常解析。
+        var rawLength = raw.length;
+        //转换成pdf.js能直接解析的Uint8Array类型
+        var array = new Uint8Array(new ArrayBuffer(rawLength));
+        for (let i = 0; i < rawLength; i++) {
+          array[i] = raw.charCodeAt(i) & 0xff;
+        }
+        return array;
+      }
+
+      // 合并PDF
+      async function mergeAllPDFs(urls) {
+        // var urls = url.split(',');
+        const timeStr = new Date().getTime();
+        const pdfDoc = await PDFLib.PDFDocument.create();
+        const numDocs = urls.length;
+        for(var i = 0; i < numDocs; i++) {
+          const donorPdfBytes = await fetch(urls[i]).then(res => res.arrayBuffer());
+          const donorPdfDoc = await PDFLib.PDFDocument.load(donorPdfBytes);
+          const docLength = donorPdfDoc.getPageCount();
+          for(var k = 0; k < docLength; k++) {
+            const [donorPage] = await pdfDoc.copyPages(donorPdfDoc, [k]);
+            //console.log("Doc " + i+ ", page " + k);
+            pdfDoc.addPage(donorPage);
+          }
+        }
+        const pdfDataUri = await pdfDoc.saveAsBase64({ dataUri: true });
+        //console.log(pdfDataUri);
+        // strip off the first part to the first comma "data:image/png;base64,iVBORw0K..."
+        var data_pdf = pdfDataUri.substring(pdfDataUri.indexOf(',')+1);
+        // return convertDataURIToBinary(pdfDataUri);
+        return data_pdf;
+      }
+
+      // 设置遮罩层
+      function showLoading() {
+        const loadingDom = document.querySelector('#sys-loading');
+        loadingDom.style.display = 'block';
+        loadingDom.style.opacity = 1;
+      }
+
+      // 取消遮罩层
+      function hideLoading() {
+        const loadingDom = document.querySelector('#sys-loading');
+        loadingDom.style.opacity = 0;
+        setTimeout(() => {
+          loadingDom.style.display = 'none';
+        }, 200);
+      }
+
+      function webViewerInitializedBefore() {
+        showLoading();
+        var pdfUrl = document.location.search.substring(1);
+        if (pdfUrl !== null && pdfUrl !== "") {
+          webViewerInitialized(null);
+          return;
+        }
+        var pdfAsDataUri = sessionStorage.getItem("_imgUrl");
+        const asyncFun = [];
+        var pdfAsArray = null;
+        asyncFun.push(mergeAllPDFs(pdfAsDataUri).then(res => {
+          pdfAsArray = res;
+        }));
+        Promise.all(asyncFun).then(() => {
+          const a = encodeURIComponent(pdfAsArray);
+          document.querySelector("iframe").src =  pdfAsArray;
+          hideLoading()
+        });
+      }
+      window.onload=webViewerInitializedBefore;
+    </script>
+  </head>
+  <body tabindex="1">
+    <div id="sys-loading" class="ct-sys-loading">
+      <div class="ct-sys-loading-content">
+        <img
+          src="data:image/gif;base64,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"
+          class="ct-sys-loading-image" alt="正在合并文件，请稍后...">
+        正在合并文件，请稍后...
+        <div id="sys-loading-tips" class="ct-sys-loading-tips"></div>
+      </div>
+    </div>
+    <div id="my-container" style="height: 100%">
+      <iframe src="" type="application/pdf" width="100%" height="100%" style="overflow: auto;">
+      </iframe>
+    </div>
+  </body>
+</html>

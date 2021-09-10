@@ -130,7 +130,8 @@ export default {
         unit = this.unitMap[action] || {};
         codePath = unit.unitCodePath || '';
       }
-      return [codePath.split('|')[0]];
+      // return [codePath.split('|')[0]];
+      return ['U01', 'U02', 'U03'];
     }
   },
   methods: {

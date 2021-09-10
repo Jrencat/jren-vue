@@ -4,7 +4,7 @@
 
 <script>
 export default {
-name: "list"
+name: "LodopList"
 }
 </script>
 

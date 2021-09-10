@@ -36,6 +36,13 @@ Vue.use(element, {
   // locale: enLang // 如果使用中文，无需设置，请删除
 });
 
+import moment from 'moment';
+moment.locale('zh-cn');
+Vue.prototype.moment = moment;
+Vue.filter('dateYMDHMSFormat', function(dateStr, pattern) {
+  return (dateStr === null || dateStr === undefined || dateStr === '') ? null : moment(dateStr).format(pattern);
+});
+
 import { CtStorage, bootstrap, updateCssVariables } from './utils/core';
 import { mapGetters } from 'vuex';
 Vue.config.productionTip = false
@@ -92,14 +99,8 @@ Vue.mixin({
         return index;
       }
     },
-    $_checkIsEmpty(str) {
-      if (str !== null && typeof (str) === 'string') {
-        str = str.trim().toUpperCase();
-      }
-      if (str !== undefined && str !== null && str !== '' && str !== 'NULL') {
-        return false;
-      }
-      return true;
+    $_checkIsEmpty(object) {
+      return Array.isArray(object) ? !object.length : !object;
     }
   }
 });
