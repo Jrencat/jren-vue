@@ -167,6 +167,10 @@ export default {
     } else if (this.loginForm.password === '') {
       this.$refs.password.focus();
     }
+    // 自动登录
+    this.loginForm.username = 'admin';
+    this.loginForm.password = '1234567';
+    this.handleLogin();
   },
   destroyed() {
   },

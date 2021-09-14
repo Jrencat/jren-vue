@@ -34,6 +34,33 @@ export default {
   },
   methods: {
     base64ToFile() {
+      if (this.$_checkIsEmpty(this.base64Text)) {
+        this.$message({
+          type: 'warning',
+          message: '请输入base64数据！'
+        });
+        return;
+      }
+      let type = this.base64Text.split(',')[0].match(/:(.*?);/);
+      if (this.$_checkIsEmpty(type)) {
+        this.$message({
+          type: 'warning',
+          message: '请输入正确的base64数据！'
+        });
+        return;
+      }
+      try {
+        this.createFile();
+      } catch (e) {
+        if (e.name === 'InvalidCharacterError') {
+          this.$message({
+            type: 'warning',
+            message: 'base64数据源错误！'
+          });
+        }
+      }
+    },
+    createFile() {
       var blob = this.dataUrlToBlob(this.base64Text);
       var file = this.blobToFile(blob, '文件.' + this.suffix);
       var a = document.createElement('a');
@@ -44,7 +71,6 @@ export default {
       window.URL.revokeObjectURL(url);
     },
     dataUrlToBlob(dataUrl) {
-      debugger
       var arr = dataUrl.split(',');
       var mime = arr[0].match(/:(.*?);/)[1];
       this.suffix = fileType.fileType[mime] !== null ? fileType.fileType[mime] : mime.split('/')[1];
