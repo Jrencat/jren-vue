@@ -91,11 +91,11 @@ export default {
       arrayData:[
         {
           id: 1,
-          data: 'http://124.70.134.251/pdf/checkReport/44010012021000008WT/安全阀校验报告_44010012021000003BG.pdf'
+          data: 'https://www.jren.top/file/pdf/图论.pdf'
         },
         {
           id: 2,
-          data: 'http://124.70.134.251/pdf/checkReport/WT00000007/安全阀校验报告_RE00000044.pdf'
+          data: 'https://www.jren.top/file/pdf/Mysql管理维护手册.pdf'
         }
       ],
       dataForm: {

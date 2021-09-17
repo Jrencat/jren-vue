@@ -55,6 +55,30 @@ export function downloadPdfByBase64(qrBase64, name) {
 export function packageDowload(that, data) {
     var zip = new JSZip();
     const asyncFun = [];
+    createZip(that, data, zip, asyncFun);
+    Promise.all(asyncFun).then(() => {
+        zip.generateAsync({
+            type: 'blob'
+        }).then(function(content) {
+            // 下载的文件名
+            var filename = '文件压缩包.zip';
+            // 创建隐藏的可下载链接
+            var eleLink = document.createElement('a');
+            eleLink.download = filename;
+            eleLink.style.display = 'none';
+            // 下载内容转变成blob地址
+            eleLink.href = URL.createObjectURL(content);
+            that.$_hideLoading();
+            // 触发点击
+            document.body.appendChild(eleLink);
+            eleLink.click();
+            // 然后移除
+            document.body.removeChild(eleLink);
+        });
+    });
+}
+
+function createZip(that, data, zip, asyncFun) {
     data.forEach(item => {
         asyncFun.push(
             fetch(item, { method: 'get', responseType: 'arraybuffer' }).then(function(res) {
@@ -75,25 +99,5 @@ export function packageDowload(that, data) {
                 throw '文件地址不正确';
             })
         );
-    });
-    Promise.all(asyncFun).then(() => {
-        zip.generateAsync({
-            type: 'blob'
-        }).then(function(content) {
-            // 下载的文件名
-            var filename = '文件压缩包.zip';
-            // 创建隐藏的可下载链接
-            var eleLink = document.createElement('a');
-            eleLink.download = filename;
-            eleLink.style.display = 'none';
-            // 下载内容转变成blob地址
-            eleLink.href = URL.createObjectURL(content);
-            that.$_hideLoading();
-            // 触发点击
-            document.body.appendChild(eleLink);
-            eleLink.click();
-            // 然后移除
-            document.body.removeChild(eleLink);
-        });
     });
 }

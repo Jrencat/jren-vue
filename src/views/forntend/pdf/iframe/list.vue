@@ -120,7 +120,7 @@ export default {
   },
   methods: {
     init() {
-      this.dataForm.url = 'http://124.70.134.251/pdf/checkReport/44010012021000008WT/安全阀校验报告_44010012021000003BG.pdf';
+      this.dataForm.url = 'https://www.jren.top/file/pdf/图论.pdf';
       this.dataForm.base64 = '';
     },
     operationItem(row, type) {

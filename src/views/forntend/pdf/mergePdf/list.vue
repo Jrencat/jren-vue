@@ -100,7 +100,7 @@ export default {
       arrayData:[
         {
           id: 1,
-          data: 'http://124.70.134.251/pdf/checkReport/44010012021000008WT/安全阀校验报告_44010012021000003BG.pdf'
+          data: 'https://www.jren.top/file/pdf/图论.pdf'
         }
       ],
       dataForm: {
