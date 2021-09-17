@@ -10,3 +10,10 @@ export function login(data) {
     }
   });
 }
+
+/**
+ * 获取枚举数据
+ */
+export function getEnum() {
+  return null;
+}

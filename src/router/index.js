@@ -155,6 +155,36 @@ export const Routes = [
                                 ]
                             },
                             {
+                                path: 'mergePdf',
+                                component: () => import('@/views/forntend/pdf/mergePdf/index'),
+                                name: 'MergePdfIndex',
+                                meta: { title: 'mergePdf' },
+                                children: [
+                                    { path: '', redirect: 'list' },
+                                    {
+                                        path: 'list',
+                                        component: () => import('@/views/forntend/pdf/mergePdf/list'),
+                                        name: 'MergePdfList',
+                                        meta: { title: 'mergePdf' }
+                                    }
+                                ]
+                            },
+                            {
+                                path: 'downloadPdf',
+                                component: () => import('@/views/forntend/pdf/downloadPdf/index'),
+                                name: 'DownloadPdfIndex',
+                                meta: { title: 'downloadPdf' },
+                                children: [
+                                    { path: '', redirect: 'list' },
+                                    {
+                                        path: 'list',
+                                        component: () => import('@/views/forntend/pdf/downloadPdf/list'),
+                                        name: 'DownloadPdfList',
+                                        meta: { title: 'downloadPdf' }
+                                    }
+                                ]
+                            },
+                            {
                                 path: 'lodop',
                                 component: () => import('@/views/forntend/pdf/lodop/index'),
                                 name: 'LodopIndex',
@@ -228,6 +258,11 @@ export const Routes = [
     {
         path: '/login',
         component: () => import('@/views/login/index'),
+        hidden: true
+    },
+    {
+        path: '/components/pdfjs',
+        component: () => import('@/components/Pdfjs/index'),
         hidden: true
     },
 ]

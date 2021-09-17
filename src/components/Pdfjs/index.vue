@@ -1,6 +1,6 @@
 <template>
   <div class="pdf-view" style="border: 1px #1a2226">
-    <div id="viewerContainer" ref="container" style="width: 1000px;display:flex;flex-direction:column;margin: 0 auto">
+    <div id="viewerContainer" ref="container" style="width: 840px;display:flex;flex-direction:column;margin: 0 auto">
       <div id="viewer" class="pdfViewer" />
     </div>
   </div>
@@ -27,6 +27,7 @@ export default {
   },
   data() {
     return {
+      newPage: false,
       pdfViewer: null,
       pdfLinkService: null,
       currentScale: 'page-width',
@@ -43,12 +44,23 @@ export default {
     }
   },
   mounted() {
+    if (this.$route.query.url && this.$route.query.pdfjsDistPath) {
+      this.url = this.$route.query.url;
+      this.pdfjsDistPath = this.$route.query.pdfjsDistPath;
+      this.newPage = true;
+    }
+    const that = this;
+
     this.pdfLibInit().then(() => {
       this.renderPdf().then(item => {
         this.$_hideLoading();
         setTimeout(function() {
-          const div = document.getElementById('viewerContainer');
-          div.style.width = '';
+          const div1 = document.getElementById('viewerContainer');
+          div1.style.width = '';
+          if (that.newPage) {
+            const div2 = document.getElementsByClassName('page')[0];
+            div2.setAttribute('style', 'width: 860px !important');
+          }
         }, 100);
         if (item === false) {
           this.$message({
@@ -137,7 +149,8 @@ export default {
 ::v-deep {
   .pdfViewer .page {
     overflow: hidden;
-    height: 101% !important;
+    height: 100% !important;
+    width: 100% !important;
   }
   .pdfViewer .page .canvasWrapper {
     width: 100% !important;

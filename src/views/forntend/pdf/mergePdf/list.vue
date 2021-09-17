@@ -6,25 +6,28 @@
           <el-row :gutter="12">
             <el-col :span="24">
               <div class="title">
-                <H1>Iframe</H1>
+                <H1>合并pdf</H1>
               </div>
             </el-col>
           </el-row>
+          <el-row :gutter="12">
+            <el-col :span="24" align="middle">
+              <el-button type="primary" @click="addInput">+</el-button>
+            </el-col>
+          </el-row>
           <el-form ref="dataForm" :model="dataForm" label-width="120px" label-suffix=":">
-            <el-row :gutter="12">
-              <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-                <el-form-item label="URL地址" prop="url">
-                  <el-input v-model="dataForm.url" type="textarea" placeholder="请输入URL地址" />
-                </el-form-item>
-              </el-col>
-            </el-row>
-            <el-row :gutter="12">
-              <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-                <el-form-item label="base64数据" prop="base64">
-                  <el-input v-model="dataForm.base64" type="textarea" placeholder="请输入base64数据" />
-                </el-form-item>
-              </el-col>
-            </el-row>
+            <div v-for="(item,index) in arrayData" :key="item.id">
+              <el-row :gutter="12">
+                <el-col :xs="22" :sm="22" :md="22" :lg="22" :xl="22">
+                  <el-form-item label="URL地址" required>
+                    <el-input v-model="item.data" type="input" placeholder="请输入URL地址" />
+                  </el-form-item>
+                </el-col>
+                <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">
+                  <el-button type="danger" @click="deleteInput(item, index)">-</el-button>
+                </el-col>
+              </el-row>
+            </div>
           </el-form>
 
           <div class="table">
@@ -63,12 +66,7 @@
               </template>
               <el-table-column fixed="right" label="URL" min-width="100" align="center" :resizable="false">
                 <template slot-scope="scope">
-                  <el-button class="operationButton" type="primary" size="mini" @click="operationItem(scope.row, 'url')">查看</el-button>
-                </template>
-              </el-table-column>
-              <el-table-column fixed="right" label="Base64" min-width="100" align="center" :resizable="false">
-                <template slot-scope="scope">
-                  <el-button class="operationButton" type="primary" size="mini" @click="operationItem(scope.row, 'base64')">查看</el-button>
+                  <el-button class="operationButton" type="primary" size="mini" @click="operationItem(scope.row)">查看</el-button>
                 </template>
               </el-table-column>
             </el-table>
@@ -84,10 +82,10 @@
 
 <script>
 import columnFilter from '@/utils/columnFilter';
-import { base64ToLink } from '@/api/base64Utils';
+import { mergePDF } from '@/api/pdfUtils';
 
 export default {
-  name: "IframeList",
+  name: "MergePdfList",
   mixins: [columnFilter],
   data() {
     const defaultColumns = [
@@ -99,9 +97,14 @@ export default {
       pdfUrl: undefined,
       columns: columns,
       loading: false,
+      arrayData:[
+        {
+          id: 1,
+          data: 'http://124.70.134.251/pdf/checkReport/44010012021000008WT/安全阀校验报告_44010012021000003BG.pdf'
+        }
+      ],
       dataForm: {
-        url: undefined,
-        base64: undefined
+        data: undefined
       },
       dataList: [
         {
@@ -112,47 +115,66 @@ export default {
           describe: '在新页面打开',
           type: 'newPage'
         }
-      ]
+      ],
+      dataNum: 1
     }
   },
-  mounted() {
-    this.init();
-  },
+  mounted() {},
   methods: {
-    init() {
-      this.dataForm.url = 'http://124.70.134.251/pdf/checkReport/44010012021000008WT/安全阀校验报告_44010012021000003BG.pdf';
-      this.dataForm.base64 = '';
+    deleteInput(item,index){
+      if(this.arrayData.length<=1){//如果只有一个输入框则不可以删除
+        return false
+      }
+      this.arrayData.splice(index,1)//删除了数组中对应的数据也就将这个位置的输入框删除
     },
-    operationItem(row, type) {
-      let msg = '';
-      if (type === 'url') {
-        msg = this.$_checkIsEmpty(this.dataForm.url) ? '请输入URL' : '';
-      }
-      if (type === 'base64') {
-        msg = this.$_checkIsEmpty(this.dataForm.base64) ? '请输入Base64' : this.dataForm.base64.startsWith('data:application/pdf;base64,') ? '' : '请输入正确的Base64';
-      }
-      if (!this.$_checkIsEmpty(msg)) {
+    addInput(){
+      this.arrayData.push(//增加就push进数组一个新值
+          {
+            id: this.dataNum++,
+            data:''
+          }
+      )
+    },
+    operationItem(row) {
+      if (this.arrayData.length === 0) {
         this.$message({
-          message: msg,
+          message: '请输入URL',
           type: 'warning'
         });
         return;
       }
-      this.dataProcessimg(row, type);
+
+      let urls = '';
+      this.arrayData.forEach(item => {
+        if (!this.$_checkIsEmpty(item.data)) {
+          urls += ',' + item.data;
+        }
+      })
+
+      if (this.$_checkIsEmpty(urls)) {
+        this.$message({
+          message: '请输入URL',
+          type: 'warning'
+        });
+        return;
+      }
+      urls = urls.substring(1);
+      this.dataProcessimg(row, urls);
     },
-    dataProcessimg(row, type) {
-      let url = '';
-      if (type === 'url') {
-        url = this.dataForm.url;
-      }
-      if (type === 'base64') {
-        url = base64ToLink(this.dataForm.base64);
-      }
-      if (row.type === 'nowPage') {
-        this.openOnNowPage(url);
-      }
-      if (row.type === 'newPage') {
-        this.openOnNewPage(url);
+    async dataProcessimg(row, urls) {
+      try {
+        const baseUrl = await mergePDF(this, urls);
+        if (row.type === 'nowPage') {
+          this.openOnNowPage(baseUrl);
+        }
+        if (row.type === 'newPage') {
+          this.openOnNewPage(baseUrl);
+        }
+      } catch (e) {
+        this.$message({
+          message: e,
+          type: 'warning'
+        });
       }
     },
     openOnNowPage(url) {
@@ -170,9 +192,9 @@ export default {
 .title{
   text-align: center;
 }
-  ::v-deep {
-    .el-textarea__inner{
-      min-height: 100px !important;
-    }
+::v-deep {
+  .el-textarea__inner{
+    min-height: 100px !important;
   }
+}
 </style>

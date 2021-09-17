@@ -9,14 +9,14 @@
 import RouteTabs from '@/components/RouteTabs';
 
 export default {
-  name: 'PdfjsIndex',
+  name: 'DownloadPdfIndex',
   components: {
     // RouteTabs
   },
   data() {
     return {
       routes: [
-        { name: 'PdfjsList', path: '/forntend/pdf/pdfjs/list', meta: { title: '客户管理', unitCode: 'U070101' }}
+        { name: 'DownloadPdfList', path: '/forntend/pdf/downloadPdf/list', meta: { title: '客户管理', unitCode: 'U070101' }}
       ]
     };
   },

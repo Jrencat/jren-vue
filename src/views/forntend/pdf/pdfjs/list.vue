@@ -1,26 +1,34 @@
 <template>
   <div class="page">
     <section class="page-section">
-      <el-form ref="dataForm" :model="dataForm" label-width="120px" label-suffix=":">
-        <el-row :gutter="12">
-          <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
-            <el-form-item label="URL地址" prop="url">
-              <el-input v-model="dataForm.url" type="textarea" placeholder="请输入URL地址" />
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row :gutter="12">
-          <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
-            <el-form-item label="base64数据" prop="base64">
-              <el-input v-model="dataForm.base64" type="textarea" placeholder="请输入base64数据" />
-            </el-form-item>
-          </el-col>
-        </el-row>
-      </el-form>
+      <el-row :gutter="12" style="height: 1160px">
+        <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" style="height: 100%; border: 1px solid skyblue">
+          <el-row :gutter="12">
+            <el-col :span="24">
+              <div class="title">
+                <H1>Pdfjs</H1>
+                <a class="target" ref="target" href="" target="_blank"></a>
+              </div>
+            </el-col>
+          </el-row>
+          <el-form ref="dataForm" :model="dataForm" label-width="120px" label-suffix=":">
+            <el-row :gutter="12">
+              <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
+                <el-form-item label="URL地址" prop="url">
+                  <el-input v-model="dataForm.url" type="textarea" placeholder="请输入URL地址" />
+                </el-form-item>
+              </el-col>
+            </el-row>
+            <el-row :gutter="12">
+              <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
+                <el-form-item label="base64数据" prop="base64">
+                  <el-input v-model="dataForm.base64" type="textarea" placeholder="请输入base64数据" />
+                </el-form-item>
+              </el-col>
+            </el-row>
+          </el-form>
 
-      <div class="table">
-        <el-row :gutter="12">
-          <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
+          <div class="table">
             <el-table
                 ref="multipleTable"
                 tooltip-effect="dark"
@@ -65,12 +73,12 @@
                 </template>
               </el-table-column>
             </el-table>
-          </el-col>
-          <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
-            <PreviewPdf v-if="showDialog" :pdf-url="pdfUrl" />
-          </el-col>
-        </el-row>
-      </div>
+          </div>
+        </el-col>
+        <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" style="height: 100%">
+          <pdf v-if="showDialog" width='100%' height='100%' :url="pdfUrl" :type="'canvas'" :pdfjs-dist-path="getConfig()" />
+        </el-col>
+      </el-row>
     </section>
   </div>
 </template>
@@ -78,15 +86,15 @@
 <script>
 import columnFilter from '@/utils/columnFilter';
 import { base64ToLink } from '@/api/base64Utils';
-import PreviewPdf from '@/components/Pdfjs/PreviewPdf';
-
+import pdf from '@/components/Pdfjs/index';
+import { getConfig } from '@/utils/core';
 
 export default {
   name: "PdfjsList",
-  components: {
-    PreviewPdf
-  },
   mixins: [columnFilter],
+  components: {
+    pdf
+  },
   data() {
     const defaultColumns = [
       { label: '描述', prop: 'describe', visible: true, disabled: false, type: 'String' }
@@ -109,10 +117,6 @@ export default {
         {
           describe: '在新页面打开',
           type: 'newPage'
-        },
-        {
-          describe: '在弹窗中打开',
-          type: 'window'
         }
       ]
     }
@@ -121,6 +125,9 @@ export default {
     this.init();
   },
   methods: {
+    getConfig() {
+      return getConfig('PDFJS-DIST-PATH');
+    },
     init() {
       this.dataForm.url = 'http://124.70.134.251/pdf/checkReport/44010012021000008WT/安全阀校验报告_44010012021000003BG.pdf';
       this.dataForm.base64 = '';
@@ -131,7 +138,7 @@ export default {
         msg = this.$_checkIsEmpty(this.dataForm.url) ? '请输入URL' : '';
       }
       if (type === 'base64') {
-        msg = this.$_checkIsEmpty(this.dataForm.base64) ? '请输入Base64' : '';
+        msg = this.$_checkIsEmpty(this.dataForm.base64) ? '请输入Base64' : this.dataForm.base64.startsWith('data:application/pdf;base64,') ? '' : '请输入正确的Base64';
       }
       if (!this.$_checkIsEmpty(msg)) {
         this.$message({
@@ -156,24 +163,27 @@ export default {
       if (row.type === 'newPage') {
         this.openOnNewPage(url);
       }
-      if (row.type === 'window') {
-        this.openOnWindow(url);
-      }
     },
     openOnNowPage(url) {
       this.pdfUrl = url;
       this.showDialog = true;
     },
     openOnNewPage(url) {
-      window.open('').document.write("<iframe width='100%' type='application/pdf' height='100%' src='" + url + "'></iframe>");
-    },
-    openOnWindow(url) {
-      window.open('').document.write("<iframe width='100%' type='application/pdf' height='100%' src='" + url + "'></iframe>");
+      let target = this.$refs.target;
+      target.setAttribute('href', window.location.origin + '/#/components/pdfjs?url=' + url +'&pdfjsDistPath=' + this.getConfig());
+      target.click();
     }
   }
 }
 </script>
 
-<style scoped>
-
+<style lang="scss" scoped>
+.title{
+  text-align: center;
+}
+::v-deep {
+  .el-textarea__inner{
+    min-height: 100px !important;
+  }
+}
 </style>
