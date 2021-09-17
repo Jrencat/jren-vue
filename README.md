@@ -1,24 +1,7 @@
 # jren
 
-## Project setup
-```
-yarn install
-```
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
-
-### Compiles and minifies for production
-```
-yarn build
-```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## 目前实现的功能
+- 文件与base64在线转换
+- 集成markdown编辑器
+- pdf在线预览、打印、合并、下载
